@@ -34,7 +34,8 @@ export async function createOxxoCharge(event, context, callback) {
       }
     }]
   }, function (err, res) {
-    console.log(res.toObject());
+    //console.log(res.toObject());
+    console.log(err);
     return callback(null, success('success'));
   });
 }
