@@ -44,11 +44,9 @@ export async function createPayPalCharge(event, context, callback) {
 
   paypal.payment.create(create_payment_json, function (error, payment) {
     if (error) {
-      throw error;
+      return callback(null,success(error));
     } else {
-      console.log("Create Payment Response");
-      console.log(payment);
-      return callback(null, success);
+      return callback(null, success(payment));
     }
   });
 
