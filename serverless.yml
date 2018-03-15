@@ -92,3 +92,11 @@ functions:
                 path: paypal/charge
                 method: get
                 cors: true
+    onPaypalResult:
+        handler: src/functions/demo.onPaypalResult   
+        timeout: 30
+        events:
+            - http:
+                path: paypal/result/{SuccessOrError}
+                method: get
+                cors: true

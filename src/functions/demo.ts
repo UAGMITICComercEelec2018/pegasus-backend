@@ -1,6 +1,8 @@
 "use strict";
 import { success, failure, notAllowed } from "./../libs/response-lib";
 
+var paypal = require('paypal-rest-sdk');
+
 export async function demo(event, context, callback) {
   console.log("Hola mundo");
 }
@@ -8,7 +10,6 @@ export async function demo(event, context, callback) {
 export async function createPayPalCharge(event, context, callback) {
   console.log(event);
 
-  var paypal = require('paypal-rest-sdk');
   paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': 'AV_N9CfkSrDZfg7nmWdYIFy0KQBDgt_DJQKobbZwZsnxhmcrQakYzRbEAb0Cix3LqoNiWjgEozadrD8W',
@@ -20,8 +21,8 @@ export async function createPayPalCharge(event, context, callback) {
       "payment_method": "paypal"
     },
     "redirect_urls": {
-      "return_url": "http://return.url",
-      "cancel_url": "http://cancel.url"
+      "return_url": process.env.PAYPAL_SERVICE_RETURN_URL,
+      "cancel_url": process.env.PAYPAL_SERVICE_ERROR_URL
     },
     "transactions": [{
       "item_list": {
@@ -46,13 +47,28 @@ export async function createPayPalCharge(event, context, callback) {
     if (error) {
       return callback(null,success(error));
     } else {
-<<<<<<< HEAD
-=======
-      console.log("Create Payment Response");
-      console.log(payment);
->>>>>>> 5db8e98bb35f2acc5a9c0fd20db3c5c19323d939
       return callback(null, success(payment));
     }
   });
+}
 
+export async function onPaypalResult(event, context, callback) {
+  console.log(event);
+  const {paymentId,PayerID:payer_id}=event.queryStringParameters;
+  try{
+    const payment= await new Promise((resolve,reject)=> paypal.payment.execute(paymentId,{payer_id},(error,payment)=>{
+      console.log();
+      if(error){
+        reject(error);
+      }
+      resolve(payment);
+    }));
+    console.log(payment);
+    return callback(null, success(payment));
+  }catch(error){
+    console.log(error);
+  }
+
+
+  return callback(null, success(paymentId));
 }
