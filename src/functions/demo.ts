@@ -46,6 +46,11 @@ export async function createPayPalCharge(event, context, callback) {
     if (error) {
       return callback(null,success(error));
     } else {
+<<<<<<< HEAD
+=======
+      console.log("Create Payment Response");
+      console.log(payment);
+>>>>>>> 5db8e98bb35f2acc5a9c0fd20db3c5c19323d939
       return callback(null, success(payment));
     }
   });
