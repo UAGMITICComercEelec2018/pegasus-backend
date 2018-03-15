@@ -56,6 +56,10 @@ export async function onPaypalResult(event, context, callback) {
   console.log(event);
   const {paymentId,PayerID:payer_id}=event.queryStringParameters;
   try{
+    const {successOrError}=event.pathParameters;
+    if('success'!== successOrError){
+      throw event;
+    }
     const payment= await new Promise((resolve,reject)=> paypal.payment.execute(paymentId,{payer_id},(error,payment)=>{
       console.log();
       if(error){
