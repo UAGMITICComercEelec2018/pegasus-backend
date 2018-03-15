@@ -10,11 +10,34 @@ export async function demo(event, context, callback) {
 export async function createPayPalCharge(event, context, callback) {
   console.log(event);
 
+
   paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': 'AV_N9CfkSrDZfg7nmWdYIFy0KQBDgt_DJQKobbZwZsnxhmcrQakYzRbEAb0Cix3LqoNiWjgEozadrD8W',
     'client_secret': 'EO4h9vVvMhhu71pXRAifH1MhvMIH4EJ_F78K8X4WI_-4Fbt9Qlfqu5HxeLmhRwXvD10b49B6xen690cz'
   });
+
+  const items=[{
+    id:"item1",
+    info:{
+      "name": "item",
+      "sku": "item",
+      "price": "1.00",
+      "currency": "USD",
+      "quantity": 1
+    },
+    price:{
+      "currency": "USD",
+      "total": "1.00"
+    }
+  }];
+
+  const {itemID}=event.pathParameters;
+  const item=items.find(i=> i.id==itemID);
+  if(!item){
+    return callback(null,failure({error:"Item no encontrado"}));
+  }
+
   var create_payment_json = {
     "intent": "sale",
     "payer": {
@@ -27,16 +50,11 @@ export async function createPayPalCharge(event, context, callback) {
     "transactions": [{
       "item_list": {
         "items": [{
-          "name": "item",
-          "sku": "item",
-          "price": "1.00",
-          "currency": "USD",
-          "quantity": 1
+          ...item.info
         }]
       },
       "amount": {
-        "currency": "USD",
-        "total": "1.00"
+        ...item.price
       },
       "description": "This is the payment description."
     }]
@@ -71,8 +89,6 @@ export async function onPaypalResult(event, context, callback) {
     return callback(null, success(payment));
   }catch(error){
     console.log(error);
+    return callback(null, success(error));
   }
-
-
-  return callback(null, success(paymentId));
 }
