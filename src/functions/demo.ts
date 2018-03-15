@@ -48,7 +48,7 @@ export async function createPayPalCharge(event, context, callback) {
     } else {
       console.log("Create Payment Response");
       console.log(payment);
-      return callback(null, success);
+      return callback(null, success(payment));
     }
   });
 
