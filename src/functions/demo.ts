@@ -30,6 +30,34 @@ export async function createPayPalCharge(event, context, callback) {
       "currency": "USD",
       "total": "1.00"
     }
+  },
+  {
+    id:"item2",
+    info:{
+      "name": "item 2",
+      "sku": "item2",
+      "price": "4.00",
+      "currency": "USD",
+      "quantity": 2
+    },
+    price:{
+      "currency": "USD",
+      "total": "8.00"
+    }
+  },
+  {
+    id:"item3",
+    info:{
+      "name": "item 3",
+      "sku": "item2",
+      "price": "2.00",
+      "currency": "USD",
+      "quantity": 3
+    },
+    price:{
+      "currency": "USD",
+      "total": "6.00"
+    }
   }];
 
   const {itemID}=event.pathParameters;
@@ -49,9 +77,7 @@ export async function createPayPalCharge(event, context, callback) {
     },
     "transactions": [{
       "item_list": {
-        "items": [{
-          ...item.info
-        }]
+        "items": [item.info]
       },
       "amount": {
         ...item.price
@@ -91,4 +117,9 @@ export async function onPaypalResult(event, context, callback) {
     console.log(error);
     return callback(null, success(error));
   }
+}
+
+export async function onPayPalPurchaseSNS(event,context,callback){
+  console.log(event);
+  return callback(null, success({event}));
 }
