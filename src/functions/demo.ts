@@ -1,5 +1,5 @@
 "use strict";
-import { success, failure, notAllowed } from "./../libs/response-lib";
+import { success, failure, notAllowed, redirect } from "./../libs/response-lib";
 
 var paypal = require('paypal-rest-sdk');
 
@@ -112,10 +112,12 @@ export async function onPaypalResult(event, context, callback) {
       resolve(payment);
     }));
     console.log(payment);
-    return callback(null, success(payment));
+    //return callback(null, success(payment));
+    return callback(null, redirect(process.env.PAYPAL_PURCHASE_SUCCESS_URL));
   }catch(error){
     console.log(error);
-    return callback(null, success(error));
+    //return callback(null, success(error));
+    return callback(null, redirect(process.env.PAYPAL_PURCHASE_ERROR_URL));
   }
 }
 
