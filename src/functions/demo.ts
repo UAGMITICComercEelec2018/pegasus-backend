@@ -135,7 +135,7 @@ export async function onPaypalResult(event, context, callback) {
     console.log(notification);
     return callback(null, redirect(process.env.PAYPAL_PURCHASE_SUCCESS_URL));
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     //return callback(null, success(error));
     return callback(null, redirect(process.env.PAYPAL_PURCHASE_ERROR_URL));
   }
