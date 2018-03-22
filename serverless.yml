@@ -97,7 +97,7 @@ functions:
         timeout: 30
         events:
             - http:
-                path: paypal/result/{SuccessOrError}
+                path: paypal/result/{successOrError}
                 method: get
                 cors: true
     onPayPalPurchaseSNS:
