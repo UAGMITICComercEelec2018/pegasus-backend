@@ -125,13 +125,14 @@ export async function onPaypalResult(event, context, callback) {
       Subject: "Subject",
       TopicArn: process.env.PAYPAL_PURCHASE_SNS
     };
-    await new Promise((resolve, reject) =>
+    const notification = await new Promise((resolve, reject) =>
       sns.publish(params, function(err, data) {
         if (err)
           reject(err); // an error occurred
         else resolve(data); // successful response
       })
     );
+    console.log(notification);
     return callback(null, redirect(process.env.PAYPAL_PURCHASE_SUCCESS_URL));
   } catch (error) {
     // console.log(error);
