@@ -82,7 +82,7 @@ functions:
         events:
             - http:
                 path: charge/oxxo
-                method: put
+                method: get
                 cors: true
     createPaypalCharge:
         handler: src/functions/demo.createPayPalCharge
