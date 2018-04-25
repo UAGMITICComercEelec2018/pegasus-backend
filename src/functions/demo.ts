@@ -20,45 +20,143 @@ export async function createPayPalCharge(event, context, callback) {
   const items=[{
     id:"item1",
     info:{
-      "name": "item",
-      "sku": "item",
-      "price": "1.00",
-      "currency": "USD",
+      "name": "Pastel de zanahoria",
+      "sku": "item1",
+      "price": "300.00",
+      "currency": "MXN",
       "quantity": 1
     },
     price:{
-      "currency": "USD",
-      "total": "1.00"
+      "currency": "MXN",
+      "total": "300.00"
     }
   },
   {
     id:"item2",
     info:{
-      "name": "item 2",
+      "name": "Torta rellena",
       "sku": "item2",
-      "price": "4.00",
-      "currency": "USD",
-      "quantity": 2
+      "price": "200.00",
+      "currency": "MXN",
+      "quantity": 1
     },
     price:{
-      "currency": "USD",
-      "total": "8.00"
+      "currency": "MXN",
+      "total": "200.00"
     }
   },
   {
     id:"item3",
     info:{
-      "name": "item 3",
-      "sku": "item2",
-      "price": "2.00",
-      "currency": "USD",
-      "quantity": 3
+      "name": "Cheesecake de fresa",
+      "sku": "item3",
+      "price": "280.00",
+      "currency": "MXN",
+      "quantity": 1
     },
     price:{
-      "currency": "USD",
-      "total": "6.00"
+      "currency": "MXN",
+      "total": "280.00"
     }
-  }];
+  },
+    {
+      id:"item4",
+      info:{
+        "name": "cheesecake de fresa",
+        "sku": "item4",
+        "price": "100.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "100.00"
+      }
+    },
+    {
+      id:"item5",
+      info:{
+        "name": "cupcakes de fresa",
+        "sku": "item5",
+        "price": "30.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "3.00"
+      }
+    },
+    {
+      id:"item6",
+      info:{
+        "name": "Muffin de vainilla",
+        "sku": "item6",
+        "price": "30.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "30.00"
+      }
+    },
+    {
+      id:"item7",
+      info:{
+        "name": "Cupcakes de vainilla",
+        "sku": "item7",
+        "price": "25.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "25.00"
+      }
+    },
+    {
+      id:"item8",
+      info:{
+        "name": "Pastel de chocolate",
+        "sku": "item8",
+        "price": "50.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "50.00"
+      }
+    },
+    {
+      id:"item9",
+      info:{
+        "name": "Pay de guayaba",
+        "sku": "item9",
+        "price": "60.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "60.00"
+      }
+    },
+    {
+      id:"item10",
+      info:{
+        "name": "Flan napolitano",
+        "sku": "item10",
+        "price": "20.00",
+        "currency": "MXN",
+        "quantity": 1
+      },
+      price:{
+        "currency": "MXN",
+        "total": "20.00"
+      }
+    }];
 
   const {itemID}=event.pathParameters;
   const item=items.find(i=> i.id==itemID);
